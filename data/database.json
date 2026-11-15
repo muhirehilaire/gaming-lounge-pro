@@ -1,0 +1,84 @@
+{
+  "users": [
+    {
+      "id": "usr-admin-1",
+      "name": "Company Owner (Admin)",
+      "email": "admin@gaminglounge.rw",
+      "phone": "0788000001",
+      "password": "admin123",
+      "role": "admin",
+      "location": "ALL"
+    },
+    {
+      "id": "usr-cashier-1",
+      "name": "Cashier Nyamirambo",
+      "email": "nyamirambo@gaminglounge.rw",
+      "phone": "0788000002",
+      "password": "cashier123",
+      "role": "cashier",
+      "location": "NYAMIRAMBO"
+    },
+    {
+      "id": "usr-cashier-2",
+      "name": "Cashier Kimironko",
+      "email": "kimironko@gaminglounge.rw",
+      "phone": "0788000003",
+      "password": "cashier123",
+      "role": "cashier",
+      "location": "KIMIRONKO"
+    },
+    {
+      "id": "usr-1794575795567",
+      "name": "Hilz",
+      "email": "muhire@gmail.com",
+      "phone": "0785198666",
+      "password": "muhire",
+      "role": "client",
+      "location": null
+    }
+  ],
+  "bookings": [
+    {
+      "id": "BK-625228",
+      "userId": "usr-1794575795567",
+      "userName": "Hilz",
+      "location": "NYAMIRAMBO",
+      "bookingType": "BOOK",
+      "seats": [
+        "VIP-4"
+      ],
+      "hours": 4,
+      "hourlyRate": 10000,
+      "totalAmount": 40000,
+      "startTime": 1794575850142,
+      "endTime": 1794575995217,
+      "holdExpiresAt": 1794575896089,
+      "status": "REFUNDED",
+      "refundRequested": false,
+      "refundHours": 3,
+      "refundAmount": 30000,
+      "createdAt": 1794575836097
+    },
+    {
+      "id": "BK-579632",
+      "userId": "usr-1794575795567",
+      "userName": "Hilz",
+      "location": "NYAMIRAMBO",
+      "bookingType": "BOOK",
+      "seats": [
+        "VIP-3"
+      ],
+      "hours": 4,
+      "hourlyRate": 10000,
+      "totalAmount": 40000,
+      "startTime": 1794576064314,
+      "endTime": 1794590464314,
+      "holdExpiresAt": 1794576119304,
+      "status": "ACTIVE",
+      "refundRequested": false,
+      "refundHours": 0,
+      "refundAmount": 0,
+      "createdAt": 1794576059304
+    }
+  ]
+}

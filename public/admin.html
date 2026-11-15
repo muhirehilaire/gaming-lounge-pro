@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArenaX | Owner & Admin Command Center</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="nav-brand">👑 ARENAX COMPANY OWNER (ADMIN)</div>
+        <div class="nav-user">
+            <span id="admin-name">Owner</span>
+            <button type="button" onclick="logout()" class="btn-outline">Logout</button>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="kpi-grid">
+            <div class="kpi-card">
+                <span>Total Gross Income</span>
+                <h2 id="kpi-gross">0 FRW</h2>
+            </div>
+            <div class="kpi-card">
+                <span>Total Refunds Issued</span>
+                <h2 id="kpi-refunds" class="danger-text">0 FRW</h2>
+            </div>
+            <div class="kpi-card">
+                <span>Net Company Revenue</span>
+                <h2 id="kpi-net" class="highlight">0 FRW</h2>
+            </div>
+            <div class="kpi-card">
+                <span>Total Paid Sessions</span>
+                <h2 id="kpi-bookings">0</h2>
+            </div>
+        </section>
+
+        <section class="card">
+            <div class="card-header">
+                <h2>📊 Income Analytics by Location (All 8 Branches)</h2>
+                <button type="button" onclick="loadAdminData()" class="btn-outline btn-sm">Refresh Analytics</button>
+            </div>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Branch Location</th>
+                            <th>Total Bookings</th>
+                            <th>Gross Income</th>
+                            <th>Refunded</th>
+                            <th>Net Income</th>
+                        </tr>
+                    </thead>
+                    <tbody id="location-analytics-body"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>➕ Register New Branch Cashier</h2>
+            <p class="subtext">Create login credentials for a desk receptionist and assign them to their branch.</p>
+            <form id="register-cashier-form" class="controls-grid">
+                <div>
+                    <label>Cashier Full Name</label>
+                    <input type="text" id="c-name" placeholder="e.g. Aline Uwase" required>
+                </div>
+                <div>
+                    <label>Cashier Email (Login ID)</label>
+                    <input type="email" id="c-email" placeholder="remera@gaminglounge.rw" required>
+                </div>
+                <div>
+                    <label>Phone Number</label>
+                    <input type="tel" id="c-phone" placeholder="078XXXXXXX">
+                </div>
+                <div>
+                    <label>Assigned Branch</label>
+                    <select id="c-location" required>
+                        <option value="NYAMIRAMBO">NYAMIRAMBO</option>
+                        <option value="NYAMATA">NYAMATA</option>
+                        <option value="NYARUTARAMA">NYARUTARAMA</option>
+                        <option value="KIMIRONKO">KIMIRONKO</option>
+                        <option value="REMERA">REMERA</option>
+                        <option value="KICUKIRO">KICUKIRO</option>
+                        <option value="MUSANZE">MUSANZE</option>
+                        <option value="KAYONZA">KAYONZA</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Password</label>
+                    <input type="password" id="c-password" placeholder="Set password" required>
+                </div>
+                <div style="display:flex; align-items:flex-end;">
+                    <button type="submit" class="btn-primary full-width">Register Cashier</button>
+                </div>
+            </form>
+            <div id="cashier-msg" class="toast hidden"></div>
+
+            <h3 style="margin-top:20px;">Active Cashiers</h3>
+            <table>
+                <thead>
+                    <tr><th>Name</th><th>Email</th><th>Assigned Location</th><th>Phone</th></tr>
+                </thead>
+                <tbody id="cashiers-list-body"></tbody>
+            </table>
+        </section>
+
+        <section class="card">
+            <div class="card-header">
+                <h2>🌍 Live Master Bookings (All Locations)</h2>
+                <select id="admin-filter-loc" onchange="renderMasterBookings()">
+                    <option value="ALL">All Locations</option>
+                    <option value="NYAMIRAMBO">NYAMIRAMBO</option>
+                    <option value="NYAMATA">NYAMATA</option>
+                    <option value="NYARUTARAMA">NYARUTARAMA</option>
+                    <option value="KIMIRONKO">KIMIRONKO</option>
+                    <option value="REMERA">REMERA</option>
+                    <option value="KICUKIRO">KICUKIRO</option>
+                    <option value="MUSANZE">MUSANZE</option>
+                    <option value="KAYONZA">KAYONZA</option>
+                </select>
+            </div>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Booking ID</th>
+                            <th>Location</th>
+                            <th>Client</th>
+                            <th>Mode</th>
+                            <th>Seats</th>
+                            <th>Total (FRW)</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-bookings-body"></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script src="/js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArenaX | Book & Reserve Gaming Seats</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <!-- Top Navigation -->
+    <header class="navbar">
+        <div class="nav-brand">🎮 ARENAX GAMING LOUNGE</div>
+        <div class="nav-user">
+            <span id="user-greeting">Welcome, Player</span>
+            <button type="button" onclick="logout()" class="btn-outline">Logout</button>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Step 1: Location & Mode Selection -->
+        <section class="card">
+            <div class="card-header">
+                <h2>1. Choose Branch & Booking Mode</h2>
+                <span class="badge">8 Locations Available</span>
+            </div>
+            <div class="controls-grid">
+                <div>
+                    <label>Select Location</label>
+                    <select id="location-select" onchange="onLocationChange()">
+                        <option value="NYAMIRAMBO">NYAMIRAMBO</option>
+                        <option value="NYAMATA">NYAMATA</option>
+                        <option value="NYARUTARAMA">NYARUTARAMA</option>
+                        <option value="KIMIRONKO">KIMIRONKO</option>
+                        <option value="REMERA">REMERA</option>
+                        <option value="KICUKIRO">KICUKIRO</option>
+                        <option value="MUSANZE">MUSANZE</option>
+                        <option value="KAYONZA">KAYONZA</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label>Booking Mode</label>
+                    <select id="booking-type" onchange="toggleReserveTime()">
+                        <option value="BOOK">BOOK (Immediate Session)</option>
+                        <option value="RESERVE">RESERVE (Schedule for Later)</option>
+                    </select>
+                </div>
+
+                <div id="reserve-time-box" class="hidden">
+                    <label>Preferred Arrival Date & Time</label>
+                    <input type="datetime-local" id="reserve-time" onchange="loadSeats()">
+                </div>
+
+                <div>
+                    <label>Duration (Whole Hours)</label>
+                    <select id="hours-select" onchange="updateSummary()">
+                        <option value="1">1 Hour</option>
+                        <option value="2">2 Hours</option>
+                        <option value="3">3 Hours</option>
+                        <option value="4">4 Hours</option>
+                        <option value="5">5 Hours</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <!-- Step 2: Seat Selection (PC 10, PS5 10, VIP 4) -->
+        <section class="card">
+            <div class="card-header">
+                <h2>2. Select Your Seats (Multi-Seat Supported)</h2>
+                <div class="legend">
+                    <span class="dot avail"></span> Available
+                    <span class="dot selected"></span> Selected
+                    <span class="dot busy"></span> Occupied / Held
+                </div>
+            </div>
+
+            <div class="sections-grid">
+                <!-- PC Section -->
+                <div class="section-box">
+                    <div class="sec-title">
+                        <h3>🖥️ PC Gaming (10 Seats)</h3>
+                        <span class="price-tag">5,000 FRW / hr</span>
+                    </div>
+                    <div id="seats-PC" class="seat-grid"></div>
+                </div>
+
+                <!-- PS5 Section -->
+                <div class="section-box">
+                    <div class="sec-title">
+                        <h3>🎮 PS5 Arena (10 Seats)</h3>
+                        <span class="price-tag">2,000 FRW / hr</span>
+                    </div>
+                    <div id="seats-PS5" class="seat-grid"></div>
+                </div>
+
+                <!-- VIP Section -->
+                <div class="section-box">
+                    <div class="sec-title">
+                        <h3>👑 VIP Lounge (4 Seats)</h3>
+                        <span class="price-tag">10,000 FRW / hr</span>
+                    </div>
+                    <div id="seats-VIP" class="seat-grid"></div>
+                </div>
+            </div>
+
+            <!-- Booking Summary Bar -->
+            <div class="checkout-bar">
+                <div>
+                    <strong>Selected Seats:</strong> <span id="selected-seats-text">None</span><br>
+                    <strong>Total Payable:</strong> <span id="total-price-text" class="highlight">0 FRW</span>
+                </div>
+                <button type="button" onclick="proceedToPayment()" class="btn-primary">Proceed to Payment (1-Min Hold)</button>
+            </div>
+        </section>
+
+        <!-- Step 3: My Active Sessions, Countdown Timers & Whole-Hour Refunds -->
+        <section class="card">
+            <div class="card-header">
+                <h2>3. My Active Bookings & Live Countdown Timers</h2>
+                <button type="button" onclick="loadMyBookings()" class="btn-outline btn-sm">Refresh</button>
+            </div>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Booking ID</th>
+                            <th>Location</th>
+                            <th>Mode</th>
+                            <th>Seats</th>
+                            <th>Total Paid</th>
+                            <th>Status</th>
+                            <th>Time Left</th>
+                            <th>Refund (Whole Hrs Only)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="my-bookings-body"></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- PAYMENT MODAL -->
+    <div id="payment-modal" class="modal hidden">
+        <div class="modal-content">
+            <h2>Complete MoMo Payment</h2>
+            <p class="hold-warning">⏳ Your seats are on hold for: <strong id="hold-countdown">01:00</strong></p>
+            
+            <div class="payment-details">
+                <p><strong>Booking ID:</strong> <span id="pay-booking-id"></span></p>
+                <p><strong>Location:</strong> <span id="pay-location"></span></p>
+                <p><strong>Seats:</strong> <span id="pay-seats"></span></p>
+                <p><strong>Amount to Pay:</strong> <span id="pay-amount" class="highlight"></span></p>
+            </div>
+
+            <div class="momo-box">
+                <label>Dial or Copy MTN MoMo Payment Code:</label>
+                <div class="momo-copy-row">
+                    <code id="momo-code-text">*182*8*1*1074944#</code>
+                    <button type="button" onclick="copyMomoCode()" class="btn-secondary">Copy Code</button>
+                </div>
+                <small id="copy-feedback" class="success-text"></small>
+            </div>
+
+            <div class="modal-actions">
+                <button type="button" onclick="confirmPayment()" class="btn-primary full-width">I Have Paid — Confirm & Start Timer</button>
+                <button type="button" onclick="closePaymentModal()" class="btn-outline full-width">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/booking.js"></script>
+</body>
+</html>

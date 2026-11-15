@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArenaX Gaming Lounge | Sign In & Register</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body class="auth-body">
+    <div class="auth-wrapper">
+        <!-- Brand & QR Code Panel -->
+        <div class="brand-panel">
+            <div class="logo-badge">ARENAX ESPORTS RWANDA</div>
+            <h1>Level Up Your Gaming Experience</h1>
+            <p>Scan the QR code at any branch reception or pick your preferred branch below to start booking.</p>
+            
+            <div class="qr-card">
+                <img id="qr-image" alt="Scan to Open Website" />
+                <span>Scan with your phone camera to open instantly</span>
+            </div>
+
+            <div class="location-picker-label">
+                📍 Select Branch on the Go: <strong id="selected-branch-label" class="highlight">NYAMIRAMBO</strong>
+            </div>
+            <div class="branch-pills" id="landing-branch-pills">
+                <button type="button" class="branch-btn active" data-loc="NYAMIRAMBO">NYAMIRAMBO</button>
+                <button type="button" class="branch-btn" data-loc="NYAMATA">NYAMATA</button>
+                <button type="button" class="branch-btn" data-loc="NYARUTARAMA">NYARUTARAMA</button>
+                <button type="button" class="branch-btn" data-loc="KIMIRONKO">KIMIRONKO</button>
+                <button type="button" class="branch-btn" data-loc="REMERA">REMERA</button>
+                <button type="button" class="branch-btn" data-loc="KICUKIRO">KICUKIRO</button>
+                <button type="button" class="branch-btn" data-loc="MUSANZE">MUSANZE</button>
+                <button type="button" class="branch-btn" data-loc="KAYONZA">KAYONZA</button>
+            </div>
+        </div>
+
+        <!-- Forms Panel (Sign Up -> Login -> Forgot Password) -->
+        <div class="form-panel">
+            <!-- 1. SIGN UP FORM -->
+            <form id="signup-form" class="auth-form">
+                <h2>Create Client Account</h2>
+                <p class="subtext">Register once to book or reserve seats across all 8 locations.</p>
+                
+                <label for="reg-name">Full Name</label>
+                <input type="text" id="reg-name" placeholder="e.g. Jean Hilaire" required>
+
+                <label for="reg-email">Email Address</label>
+                <input type="email" id="reg-email" placeholder="you@example.com" required>
+
+                <label for="reg-phone">Phone Number (MoMo)</label>
+                <input type="tel" id="reg-phone" placeholder="078XXXXXXX" required>
+
+                <label for="reg-password">Password</label>
+                <input type="password" id="reg-password" placeholder="Create a password" required>
+
+                <button type="submit" id="btn-register" class="btn-primary full-width">Register Account</button>
+
+                <div class="auth-links">
+                    Already have an account? <button type="button" class="link-btn" id="to-login-btn">Log in here</button>
+                </div>
+            </form>
+
+            <!-- 2. LOGIN FORM -->
+            <form id="login-form" class="auth-form hidden">
+                <h2>Welcome Back</h2>
+                <p class="subtext">Sign in to access your booking dashboard.</p>
+
+                <label for="login-email">Email Address</label>
+                <input type="email" id="login-email" placeholder="Enter your email" required>
+
+                <label for="login-password">Password</label>
+                <input type="password" id="login-password" placeholder="Enter your password" required>
+
+                <button type="submit" id="btn-login" class="btn-primary full-width">Login to Dashboard</button>
+
+                <div class="auth-links row-between">
+                    <button type="button" class="link-btn" id="to-forgot-btn">Forgot Password?</button>
+                    <button type="button" class="link-btn" id="to-signup-btn">Create an account</button>
+                </div>
+            </form>
+
+            <!-- 3. FORGOT PASSWORD FORM -->
+            <form id="forgot-form" class="auth-form hidden">
+                <h2>Reset Password</h2>
+                <p class="subtext">Enter your registered email and set a new password.</p>
+
+                <label for="forgot-email">Registered Email</label>
+                <input type="email" id="forgot-email" placeholder="you@example.com" required>
+
+                <label for="forgot-password">New Password</label>
+                <input type="password" id="forgot-password" placeholder="New password" required>
+
+                <button type="submit" id="btn-forgot" class="btn-primary full-width">Update Password</button>
+
+                <div class="auth-links">
+                    Remembered it? <button type="button" class="link-btn" id="back-login-btn">Back to Login</button>
+                </div>
+            </form>
+
+            <div id="auth-message" class="toast hidden"></div>
+        </div>
+    </div>
+
+    <script src="/js/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "name": "gaming-lounge-multi-branch",
+  "version": "2.1.0",
+  "description": "Multi-Location Gaming Lounge Management & Booking System (HTML, CSS, JS, Node.js)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

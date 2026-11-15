@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArenaX | Cashier Desk Portal</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="nav-brand">🧾 ARENAX CASHIER PORTAL — <span id="branch-badge" class="highlight">BRANCH</span></div>
+        <div class="nav-user">
+            <span id="cashier-name">Cashier</span>
+            <button type="button" onclick="logout()" class="btn-outline">Logout</button>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="tabs">
+            <button type="button" class="tab-btn active" onclick="switchTab('bookings-tab', this)">Branch Booked Seats & Refunds</button>
+            <button type="button" class="tab-btn" onclick="switchTab('walkin-tab', this)">Book Walk-In Client</button>
+        </div>
+
+        <section id="bookings-tab" class="card">
+            <div class="card-header">
+                <h2>Booked Seats at <span id="branch-title"></span></h2>
+                <button type="button" onclick="loadBranchBookings()" class="btn-outline btn-sm">Refresh</button>
+            </div>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Booking ID</th>
+                            <th>Client</th>
+                            <th>Type</th>
+                            <th>Seats</th>
+                            <th>Duration</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Time Left</th>
+                            <th>Refund Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cashier-bookings-body"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="walkin-tab" class="card hidden">
+            <h2>Book Walk-In Client (<span id="walkin-branch"></span>)</h2>
+            <p class="subtext">Instantly assign seats for a customer paying cash or MoMo at the reception desk.</p>
+            
+            <div class="controls-grid">
+                <div>
+                    <label>Client Name</label>
+                    <input type="text" id="walkin-client-name" placeholder="e.g. Patrick K.">
+                </div>
+                <div>
+                    <label>Booking Mode</label>
+                    <select id="walkin-type" onchange="toggleWalkinTime()">
+                        <option value="BOOK">BOOK (Start Now)</option>
+                        <option value="RESERVE">RESERVE (Later)</option>
+                    </select>
+                </div>
+                <div id="walkin-time-box" class="hidden">
+                    <label>Arrival Time</label>
+                    <input type="datetime-local" id="walkin-time" onchange="loadWalkinSeats()">
+                </div>
+                <div>
+                    <label>Hours</label>
+                    <select id="walkin-hours">
+                        <option value="1">1 Hour</option>
+                        <option value="2">2 Hours</option>
+                        <option value="3">3 Hours</option>
+                        <option value="4">4 Hours</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="sections-grid" style="margin-top: 15px;">
+                <div class="section-box">
+                    <h3>🖥️ PC (5,000 FRW/hr)</h3>
+                    <div id="walkin-PC" class="seat-grid"></div>
+                </div>
+                <div class="section-box">
+                    <h3>🎮 PS5 (2,000 FRW/hr)</h3>
+                    <div id="walkin-PS5" class="seat-grid"></div>
+                </div>
+                <div class="section-box">
+                    <h3>👑 VIP (10,000 FRW/hr)</h3>
+                    <div id="walkin-VIP" class="seat-grid"></div>
+                </div>
+            </div>
+
+            <div class="checkout-bar">
+                <div><strong>Selected:</strong> <span id="walkin-selected-text">None</span></div>
+                <button type="button" onclick="submitWalkinBooking()" class="btn-primary">Confirm Desk Booking</button>
+            </div>
+        </section>
+    </main>
+
+    <script src="/js/cashier.js"></script>
+</body>
+</html>
