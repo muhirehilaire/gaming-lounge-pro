@@ -5,6 +5,12 @@
  */
 
 const express = require('express');
+const mongoose = require('mongoose');
+
+// Connect to MongoDB Atlas
+mongoose.connect(process.env.MONGODB_URI)
+  .then(() => console.log('Connected to MongoDB Atlas successfully!'))
+  .catch(err => console.error('MongoDB connection error:', err));
 const fs = require('fs');
 const path = require('path');
 
